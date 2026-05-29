@@ -1,165 +1,362 @@
-class Parser:
+import ply.yacc as yacc
+from lexer import tokens
 
-    def parse(self, tokens):
+# =========================
+# PRECEDÊNCIA
+# =========================
 
-        ast = []
+precedence = (
 
-        i = 0
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+)
 
-        while i < len(tokens):
+# =========================
+# PROGRAMA
+# =========================
 
-            line = tokens[i]
+def p_program(p):
 
-            command = line[0]
+    '''
+    program : statements
+    '''
 
-            # PRINT
-            if command == "PRINT":
+    p[0] = p[1]
 
-                raw_value = " ".join(line[1:])
+# =========================
+# MÚLTIPLOS COMANDOS
+# =========================
 
-                # STRING
-                if '"' in raw_value:
+def p_statements_multiple(p):
 
-                    value = raw_value.replace('"', '')
+    '''
+    statements : statements statement
+    '''
 
-                    ast.append({
-                        "type": "PRINT",
-                        "value": value,
-                        "value_type": "STRING"
-                    })
+    p[0] = p[1] + [p[2]]
 
-                # VARIÁVEL
-                else:
+# =========================
+# UM COMANDO
+# =========================
 
-                    ast.append({
-                        "type": "PRINT",
-                        "value": raw_value,
-                        "value_type": "VARIABLE"
-                    })
+def p_statements_single(p):
 
-            # LET
-            elif command == "LET":
+    '''
+    statements : statement
+    '''
 
-                variable_name = line[1]
+    p[0] = [p[1]]
 
-                value = " ".join(line[3:])
+# =========================
+# EXPRESSÕES MATEMÁTICAS
+# =========================
 
-                value = value.replace('"', '')
+def p_expression_binop(p):
 
-                ast.append({
-                    "type": "LET",
-                    "name": variable_name,
-                    "value": value
-                })
+    '''
+    expression : expression PLUS expression
+               | expression MINUS expression
+               | expression TIMES expression
+               | expression DIVIDE expression
+    '''
 
-            # IF
-            elif command == "IF":
+    p[0] = {
 
-                left = line[1]
+        "type": "BINARY_OP",
 
-                operator = line[2]
+        "left": p[1],
 
-                right = line[3]
+        "operator": p[2],
 
-                body = []
+        "right": p[3]
+    }
 
-                i += 1
+# =========================
+# NÚMERO
+# =========================
 
-                while tokens[i][0] != "END":
+def p_expression_number(p):
 
-                    inner_line = tokens[i]
+    '''
+    expression : NUMBER
+    '''
 
-                    inner_command = inner_line[0]
+    p[0] = p[1]
 
-                    # PRINT dentro do IF
-                    if inner_command == "PRINT":
+# =========================
+# VARIÁVEL
+# =========================
 
-                        raw_value = " ".join(inner_line[1:])
+def p_expression_id(p):
 
-                        # STRING
-                        if '"' in raw_value:
+    '''
+    expression : ID
+    '''
 
-                            value = raw_value.replace('"', '')
+    p[0] = p[1]
 
-                            body.append({
-                                "type": "PRINT",
-                                "value": value,
-                                "value_type": "STRING"
-                            })
+# =========================
+# CONDIÇÕES
+# =========================
 
-                        # VARIÁVEL
-                        else:
+def p_condition(p):
 
-                            body.append({
-                                "type": "PRINT",
-                                "value": raw_value,
-                                "value_type": "VARIABLE"
-                            })
+    '''
+    condition : expression GREATER expression
+              | expression LESS expression
+              | expression EQUAL_EQUAL expression
+    '''
 
-                    i += 1
+    p[0] = {
 
-                ast.append({
-                    "type": "IF",
-                    "left": left,
-                    "operator": operator,
-                    "right": right,
-                    "body": body
-                })
+        "left": p[1],
 
-            # FOR
-            elif command == "FOR":
+        "operator": p[2],
 
-                variable = line[1]
+        "right": p[3]
+    }
 
-                start = line[3]
+# =========================
+# PRINT STRING
+# =========================
 
-                end = line[5]
+def p_statement_print_string(p):
 
-                body = []
+    '''
+    statement : PRINT STRING
+    '''
 
-                i += 1
+    p[0] = {
 
-                while tokens[i][0] != "END":
+        "type": "PRINT",
 
-                    inner_line = tokens[i]
+        "value": p[2],
 
-                    inner_command = inner_line[0]
+        "value_type": "STRING"
+    }
 
-                    # PRINT dentro do FOR
-                    if inner_command == "PRINT":
+# =========================
+# PRINT VARIÁVEL
+# =========================
 
-                        raw_value = " ".join(inner_line[1:])
+def p_statement_print_variable(p):
 
-                        # STRING
-                        if '"' in raw_value:
+    '''
+    statement : PRINT ID
+    '''
 
-                            value = raw_value.replace('"', '')
+    p[0] = {
 
-                            body.append({
-                                "type": "PRINT",
-                                "value": value,
-                                "value_type": "STRING"
-                            })
+        "type": "PRINT",
 
-                        # VARIÁVEL
-                        else:
+        "value": p[2],
 
-                            body.append({
-                                "type": "PRINT",
-                                "value": raw_value,
-                                "value_type": "VARIABLE"
-                            })
+        "value_type": "VARIABLE"
+    }
 
-                    i += 1
+# =========================
+# LET EXPRESSÃO
+# =========================
 
-                ast.append({
-                    "type": "FOR",
-                    "variable": variable,
-                    "start": start,
-                    "end": end,
-                    "body": body
-                })
+def p_statement_let_expression(p):
 
-            i += 1
+    '''
+    statement : LET ID EQUALS expression
+    '''
 
-        return ast
+    p[0] = {
+
+        "type": "LET",
+
+        "name": p[2],
+
+        "value": p[4]
+    }
+
+# =========================
+# LET STRING
+# =========================
+
+def p_statement_let_string(p):
+
+    '''
+    statement : LET ID EQUALS STRING
+    '''
+
+    p[0] = {
+
+        "type": "LET",
+
+        "name": p[2],
+
+        "value": p[4]
+    }
+
+# =========================
+# IF SIMPLES
+# =========================
+
+def p_statement_if(p):
+
+    '''
+    statement : IF condition statements END
+    '''
+
+    p[0] = {
+
+        "type": "IF",
+
+        "left": p[2]["left"],
+
+        "operator": p[2]["operator"],
+
+        "right": p[2]["right"],
+
+        "body": p[3],
+
+        "elifs": [],
+
+        "else": None
+    }
+
+# =========================
+# IF + ELSE
+# =========================
+
+def p_statement_if_else(p):
+
+    '''
+    statement : IF condition statements ELSE statements END
+    '''
+
+    p[0] = {
+
+        "type": "IF",
+
+        "left": p[2]["left"],
+
+        "operator": p[2]["operator"],
+
+        "right": p[2]["right"],
+
+        "body": p[3],
+
+        "elifs": [],
+
+        "else": p[5]
+    }
+
+# =========================
+# IF + ELIF
+# =========================
+
+def p_statement_if_elif(p):
+
+    '''
+    statement : IF condition statements ELIF condition statements END
+    '''
+
+    p[0] = {
+
+        "type": "IF",
+
+        "left": p[2]["left"],
+
+        "operator": p[2]["operator"],
+
+        "right": p[2]["right"],
+
+        "body": p[3],
+
+        "elifs": [
+
+            {
+
+                "left": p[5]["left"],
+
+                "operator": p[5]["operator"],
+
+                "right": p[5]["right"],
+
+                "body": p[6]
+            }
+        ],
+
+        "else": None
+    }
+
+# =========================
+# IF + ELIF + ELSE
+# =========================
+
+def p_statement_if_elif_else(p):
+
+    '''
+    statement : IF condition statements ELIF condition statements ELSE statements END
+    '''
+
+    p[0] = {
+
+        "type": "IF",
+
+        "left": p[2]["left"],
+
+        "operator": p[2]["operator"],
+
+        "right": p[2]["right"],
+
+        "body": p[3],
+
+        "elifs": [
+
+            {
+
+                "left": p[5]["left"],
+
+                "operator": p[5]["operator"],
+
+                "right": p[5]["right"],
+
+                "body": p[6]
+            }
+        ],
+
+        "else": p[8]
+    }
+
+# =========================
+# FOR
+# =========================
+
+def p_statement_for(p):
+
+    '''
+    statement : FOR ID EQUALS expression TO expression statements END
+    '''
+
+    p[0] = {
+
+        "type": "FOR",
+
+        "variable": p[2],
+
+        "start": p[4],
+
+        "end": p[6],
+
+        "body": p[7]
+    }
+
+# =========================
+# ERRO
+# =========================
+
+def p_error(p):
+
+    print("Erro de sintaxe!")
+
+# =========================
+# CRIAR PARSER
+# =========================
+
+parser = yacc.yacc()

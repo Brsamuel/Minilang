@@ -1,28 +1,40 @@
-from lexer import Lexer
-from parser import Parser
+from lexer import lexer
+from parser import parser
 from generator import Generator
+
+# =========================
+# LER CÓDIGO
+# =========================
 
 with open("programa.mini", "r", encoding="utf-8") as file:
 
     code = file.read()
 
+# =========================
 # LEXER
-lexer = Lexer()
+# =========================
 
-tokens = lexer.tokenize(code)
+lexer.input(code)
 
 print("TOKENS:")
-print(tokens)
 
+for token in lexer:
+
+    print(token)
+
+# =========================
 # PARSER
-parser = Parser()
+# =========================
 
-ast = parser.parse(tokens)
+ast = parser.parse(code)
 
 print("\nAST:")
 print(ast)
 
+# =========================
 # GENERATOR
+# =========================
+
 generator = Generator()
 
 python_code = generator.generate(ast)
@@ -30,7 +42,10 @@ python_code = generator.generate(ast)
 print("\nPYTHON GERADO:")
 print(python_code)
 
-# SALVAR ARQUIVO
+# =========================
+# SALVAR OUTPUT
+# =========================
+
 with open("output.py", "w", encoding="utf-8") as file:
 
     file.write(python_code)

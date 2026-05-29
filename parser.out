@@ -1,0 +1,1007 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statements
+Rule 2     statements -> statements statement
+Rule 3     statements -> statement
+Rule 4     expression -> expression PLUS expression
+Rule 5     expression -> expression MINUS expression
+Rule 6     expression -> expression TIMES expression
+Rule 7     expression -> expression DIVIDE expression
+Rule 8     expression -> NUMBER
+Rule 9     expression -> ID
+Rule 10    condition -> expression GREATER expression
+Rule 11    condition -> expression LESS expression
+Rule 12    condition -> expression EQUAL_EQUAL expression
+Rule 13    statement -> PRINT STRING
+Rule 14    statement -> PRINT ID
+Rule 15    statement -> LET ID EQUALS expression
+Rule 16    statement -> LET ID EQUALS STRING
+Rule 17    statement -> IF condition statements END
+Rule 18    statement -> IF condition statements ELSE statements END
+Rule 19    statement -> IF condition statements ELIF condition statements END
+Rule 20    statement -> IF condition statements ELIF condition statements ELSE statements END
+Rule 21    statement -> FOR ID EQUALS expression TO expression statements END
+
+Terminals, with rules where they appear
+
+DIVIDE               : 7
+ELIF                 : 19 20
+ELSE                 : 18 20
+END                  : 17 18 19 20 21
+EQUALS               : 15 16 21
+EQUAL_EQUAL          : 12
+FOR                  : 21
+GREATER              : 10
+ID                   : 9 14 15 16 21
+IF                   : 17 18 19 20
+LESS                 : 11
+LET                  : 15 16
+MINUS                : 5
+NUMBER               : 8
+PLUS                 : 4
+PRINT                : 13 14
+STRING               : 13 16
+TIMES                : 6
+TO                   : 21
+error                : 
+
+Nonterminals, with rules where they appear
+
+condition            : 17 18 19 19 20 20
+expression           : 4 4 5 5 6 6 7 7 10 10 11 11 12 12 15 21 21
+program              : 0
+statement            : 2 3
+statements           : 1 2 17 18 18 19 19 20 20 20 21
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statements
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    program                        shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statements .
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    $end            reduce using rule 1 (program -> statements .)
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 3
+
+    (3) statements -> statement .
+
+    PRINT           reduce using rule 3 (statements -> statement .)
+    LET             reduce using rule 3 (statements -> statement .)
+    IF              reduce using rule 3 (statements -> statement .)
+    FOR             reduce using rule 3 (statements -> statement .)
+    $end            reduce using rule 3 (statements -> statement .)
+    END             reduce using rule 3 (statements -> statement .)
+    ELSE            reduce using rule 3 (statements -> statement .)
+    ELIF            reduce using rule 3 (statements -> statement .)
+
+
+state 4
+
+    (13) statement -> PRINT . STRING
+    (14) statement -> PRINT . ID
+
+    STRING          shift and go to state 9
+    ID              shift and go to state 10
+
+
+state 5
+
+    (15) statement -> LET . ID EQUALS expression
+    (16) statement -> LET . ID EQUALS STRING
+
+    ID              shift and go to state 11
+
+
+state 6
+
+    (17) statement -> IF . condition statements END
+    (18) statement -> IF . condition statements ELSE statements END
+    (19) statement -> IF . condition statements ELIF condition statements END
+    (20) statement -> IF . condition statements ELIF condition statements ELSE statements END
+    (10) condition -> . expression GREATER expression
+    (11) condition -> . expression LESS expression
+    (12) condition -> . expression EQUAL_EQUAL expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    condition                      shift and go to state 12
+    expression                     shift and go to state 13
+
+state 7
+
+    (21) statement -> FOR . ID EQUALS expression TO expression statements END
+
+    ID              shift and go to state 16
+
+
+state 8
+
+    (2) statements -> statements statement .
+
+    PRINT           reduce using rule 2 (statements -> statements statement .)
+    LET             reduce using rule 2 (statements -> statements statement .)
+    IF              reduce using rule 2 (statements -> statements statement .)
+    FOR             reduce using rule 2 (statements -> statements statement .)
+    $end            reduce using rule 2 (statements -> statements statement .)
+    END             reduce using rule 2 (statements -> statements statement .)
+    ELSE            reduce using rule 2 (statements -> statements statement .)
+    ELIF            reduce using rule 2 (statements -> statements statement .)
+
+
+state 9
+
+    (13) statement -> PRINT STRING .
+
+    PRINT           reduce using rule 13 (statement -> PRINT STRING .)
+    LET             reduce using rule 13 (statement -> PRINT STRING .)
+    IF              reduce using rule 13 (statement -> PRINT STRING .)
+    FOR             reduce using rule 13 (statement -> PRINT STRING .)
+    $end            reduce using rule 13 (statement -> PRINT STRING .)
+    END             reduce using rule 13 (statement -> PRINT STRING .)
+    ELSE            reduce using rule 13 (statement -> PRINT STRING .)
+    ELIF            reduce using rule 13 (statement -> PRINT STRING .)
+
+
+state 10
+
+    (14) statement -> PRINT ID .
+
+    PRINT           reduce using rule 14 (statement -> PRINT ID .)
+    LET             reduce using rule 14 (statement -> PRINT ID .)
+    IF              reduce using rule 14 (statement -> PRINT ID .)
+    FOR             reduce using rule 14 (statement -> PRINT ID .)
+    $end            reduce using rule 14 (statement -> PRINT ID .)
+    END             reduce using rule 14 (statement -> PRINT ID .)
+    ELSE            reduce using rule 14 (statement -> PRINT ID .)
+    ELIF            reduce using rule 14 (statement -> PRINT ID .)
+
+
+state 11
+
+    (15) statement -> LET ID . EQUALS expression
+    (16) statement -> LET ID . EQUALS STRING
+
+    EQUALS          shift and go to state 17
+
+
+state 12
+
+    (17) statement -> IF condition . statements END
+    (18) statement -> IF condition . statements ELSE statements END
+    (19) statement -> IF condition . statements ELIF condition statements END
+    (20) statement -> IF condition . statements ELIF condition statements ELSE statements END
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statements                     shift and go to state 18
+    statement                      shift and go to state 3
+
+state 13
+
+    (10) condition -> expression . GREATER expression
+    (11) condition -> expression . LESS expression
+    (12) condition -> expression . EQUAL_EQUAL expression
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    GREATER         shift and go to state 19
+    LESS            shift and go to state 20
+    EQUAL_EQUAL     shift and go to state 21
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 14
+
+    (8) expression -> NUMBER .
+
+    GREATER         reduce using rule 8 (expression -> NUMBER .)
+    LESS            reduce using rule 8 (expression -> NUMBER .)
+    EQUAL_EQUAL     reduce using rule 8 (expression -> NUMBER .)
+    PLUS            reduce using rule 8 (expression -> NUMBER .)
+    MINUS           reduce using rule 8 (expression -> NUMBER .)
+    TIMES           reduce using rule 8 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 8 (expression -> NUMBER .)
+    PRINT           reduce using rule 8 (expression -> NUMBER .)
+    LET             reduce using rule 8 (expression -> NUMBER .)
+    IF              reduce using rule 8 (expression -> NUMBER .)
+    FOR             reduce using rule 8 (expression -> NUMBER .)
+    $end            reduce using rule 8 (expression -> NUMBER .)
+    END             reduce using rule 8 (expression -> NUMBER .)
+    ELSE            reduce using rule 8 (expression -> NUMBER .)
+    ELIF            reduce using rule 8 (expression -> NUMBER .)
+    TO              reduce using rule 8 (expression -> NUMBER .)
+
+
+state 15
+
+    (9) expression -> ID .
+
+    GREATER         reduce using rule 9 (expression -> ID .)
+    LESS            reduce using rule 9 (expression -> ID .)
+    EQUAL_EQUAL     reduce using rule 9 (expression -> ID .)
+    PLUS            reduce using rule 9 (expression -> ID .)
+    MINUS           reduce using rule 9 (expression -> ID .)
+    TIMES           reduce using rule 9 (expression -> ID .)
+    DIVIDE          reduce using rule 9 (expression -> ID .)
+    PRINT           reduce using rule 9 (expression -> ID .)
+    LET             reduce using rule 9 (expression -> ID .)
+    IF              reduce using rule 9 (expression -> ID .)
+    FOR             reduce using rule 9 (expression -> ID .)
+    $end            reduce using rule 9 (expression -> ID .)
+    END             reduce using rule 9 (expression -> ID .)
+    ELSE            reduce using rule 9 (expression -> ID .)
+    ELIF            reduce using rule 9 (expression -> ID .)
+    TO              reduce using rule 9 (expression -> ID .)
+
+
+state 16
+
+    (21) statement -> FOR ID . EQUALS expression TO expression statements END
+
+    EQUALS          shift and go to state 26
+
+
+state 17
+
+    (15) statement -> LET ID EQUALS . expression
+    (16) statement -> LET ID EQUALS . STRING
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    STRING          shift and go to state 28
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 27
+
+state 18
+
+    (17) statement -> IF condition statements . END
+    (18) statement -> IF condition statements . ELSE statements END
+    (19) statement -> IF condition statements . ELIF condition statements END
+    (20) statement -> IF condition statements . ELIF condition statements ELSE statements END
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    END             shift and go to state 29
+    ELSE            shift and go to state 30
+    ELIF            shift and go to state 31
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 19
+
+    (10) condition -> expression GREATER . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 32
+
+state 20
+
+    (11) condition -> expression LESS . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 33
+
+state 21
+
+    (12) condition -> expression EQUAL_EQUAL . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 34
+
+state 22
+
+    (4) expression -> expression PLUS . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 35
+
+state 23
+
+    (5) expression -> expression MINUS . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 36
+
+state 24
+
+    (6) expression -> expression TIMES . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 37
+
+state 25
+
+    (7) expression -> expression DIVIDE . expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 38
+
+state 26
+
+    (21) statement -> FOR ID EQUALS . expression TO expression statements END
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 39
+
+state 27
+
+    (15) statement -> LET ID EQUALS expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    PRINT           reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    LET             reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    IF              reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    FOR             reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    $end            reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    END             reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    ELSE            reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    ELIF            reduce using rule 15 (statement -> LET ID EQUALS expression .)
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 28
+
+    (16) statement -> LET ID EQUALS STRING .
+
+    PRINT           reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    LET             reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    IF              reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    FOR             reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    $end            reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    END             reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    ELSE            reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+    ELIF            reduce using rule 16 (statement -> LET ID EQUALS STRING .)
+
+
+state 29
+
+    (17) statement -> IF condition statements END .
+
+    PRINT           reduce using rule 17 (statement -> IF condition statements END .)
+    LET             reduce using rule 17 (statement -> IF condition statements END .)
+    IF              reduce using rule 17 (statement -> IF condition statements END .)
+    FOR             reduce using rule 17 (statement -> IF condition statements END .)
+    $end            reduce using rule 17 (statement -> IF condition statements END .)
+    END             reduce using rule 17 (statement -> IF condition statements END .)
+    ELSE            reduce using rule 17 (statement -> IF condition statements END .)
+    ELIF            reduce using rule 17 (statement -> IF condition statements END .)
+
+
+state 30
+
+    (18) statement -> IF condition statements ELSE . statements END
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statements                     shift and go to state 40
+    statement                      shift and go to state 3
+
+state 31
+
+    (19) statement -> IF condition statements ELIF . condition statements END
+    (20) statement -> IF condition statements ELIF . condition statements ELSE statements END
+    (10) condition -> . expression GREATER expression
+    (11) condition -> . expression LESS expression
+    (12) condition -> . expression EQUAL_EQUAL expression
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    condition                      shift and go to state 41
+    expression                     shift and go to state 13
+
+state 32
+
+    (10) condition -> expression GREATER expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    PRINT           reduce using rule 10 (condition -> expression GREATER expression .)
+    LET             reduce using rule 10 (condition -> expression GREATER expression .)
+    IF              reduce using rule 10 (condition -> expression GREATER expression .)
+    FOR             reduce using rule 10 (condition -> expression GREATER expression .)
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 33
+
+    (11) condition -> expression LESS expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    PRINT           reduce using rule 11 (condition -> expression LESS expression .)
+    LET             reduce using rule 11 (condition -> expression LESS expression .)
+    IF              reduce using rule 11 (condition -> expression LESS expression .)
+    FOR             reduce using rule 11 (condition -> expression LESS expression .)
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 34
+
+    (12) condition -> expression EQUAL_EQUAL expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    PRINT           reduce using rule 12 (condition -> expression EQUAL_EQUAL expression .)
+    LET             reduce using rule 12 (condition -> expression EQUAL_EQUAL expression .)
+    IF              reduce using rule 12 (condition -> expression EQUAL_EQUAL expression .)
+    FOR             reduce using rule 12 (condition -> expression EQUAL_EQUAL expression .)
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 35
+
+    (4) expression -> expression PLUS expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    GREATER         reduce using rule 4 (expression -> expression PLUS expression .)
+    LESS            reduce using rule 4 (expression -> expression PLUS expression .)
+    EQUAL_EQUAL     reduce using rule 4 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 4 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 4 (expression -> expression PLUS expression .)
+    PRINT           reduce using rule 4 (expression -> expression PLUS expression .)
+    LET             reduce using rule 4 (expression -> expression PLUS expression .)
+    IF              reduce using rule 4 (expression -> expression PLUS expression .)
+    FOR             reduce using rule 4 (expression -> expression PLUS expression .)
+    $end            reduce using rule 4 (expression -> expression PLUS expression .)
+    END             reduce using rule 4 (expression -> expression PLUS expression .)
+    ELSE            reduce using rule 4 (expression -> expression PLUS expression .)
+    ELIF            reduce using rule 4 (expression -> expression PLUS expression .)
+    TO              reduce using rule 4 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+  ! TIMES           [ reduce using rule 4 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 4 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 22 ]
+  ! MINUS           [ shift and go to state 23 ]
+
+
+state 36
+
+    (5) expression -> expression MINUS expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    GREATER         reduce using rule 5 (expression -> expression MINUS expression .)
+    LESS            reduce using rule 5 (expression -> expression MINUS expression .)
+    EQUAL_EQUAL     reduce using rule 5 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 5 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 5 (expression -> expression MINUS expression .)
+    PRINT           reduce using rule 5 (expression -> expression MINUS expression .)
+    LET             reduce using rule 5 (expression -> expression MINUS expression .)
+    IF              reduce using rule 5 (expression -> expression MINUS expression .)
+    FOR             reduce using rule 5 (expression -> expression MINUS expression .)
+    $end            reduce using rule 5 (expression -> expression MINUS expression .)
+    END             reduce using rule 5 (expression -> expression MINUS expression .)
+    ELSE            reduce using rule 5 (expression -> expression MINUS expression .)
+    ELIF            reduce using rule 5 (expression -> expression MINUS expression .)
+    TO              reduce using rule 5 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+  ! TIMES           [ reduce using rule 5 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 5 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 22 ]
+  ! MINUS           [ shift and go to state 23 ]
+
+
+state 37
+
+    (6) expression -> expression TIMES expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    GREATER         reduce using rule 6 (expression -> expression TIMES expression .)
+    LESS            reduce using rule 6 (expression -> expression TIMES expression .)
+    EQUAL_EQUAL     reduce using rule 6 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 6 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 6 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 6 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 6 (expression -> expression TIMES expression .)
+    PRINT           reduce using rule 6 (expression -> expression TIMES expression .)
+    LET             reduce using rule 6 (expression -> expression TIMES expression .)
+    IF              reduce using rule 6 (expression -> expression TIMES expression .)
+    FOR             reduce using rule 6 (expression -> expression TIMES expression .)
+    $end            reduce using rule 6 (expression -> expression TIMES expression .)
+    END             reduce using rule 6 (expression -> expression TIMES expression .)
+    ELSE            reduce using rule 6 (expression -> expression TIMES expression .)
+    ELIF            reduce using rule 6 (expression -> expression TIMES expression .)
+    TO              reduce using rule 6 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 22 ]
+  ! MINUS           [ shift and go to state 23 ]
+  ! TIMES           [ shift and go to state 24 ]
+  ! DIVIDE          [ shift and go to state 25 ]
+
+
+state 38
+
+    (7) expression -> expression DIVIDE expression .
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    GREATER         reduce using rule 7 (expression -> expression DIVIDE expression .)
+    LESS            reduce using rule 7 (expression -> expression DIVIDE expression .)
+    EQUAL_EQUAL     reduce using rule 7 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 7 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 7 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 7 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 7 (expression -> expression DIVIDE expression .)
+    PRINT           reduce using rule 7 (expression -> expression DIVIDE expression .)
+    LET             reduce using rule 7 (expression -> expression DIVIDE expression .)
+    IF              reduce using rule 7 (expression -> expression DIVIDE expression .)
+    FOR             reduce using rule 7 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 7 (expression -> expression DIVIDE expression .)
+    END             reduce using rule 7 (expression -> expression DIVIDE expression .)
+    ELSE            reduce using rule 7 (expression -> expression DIVIDE expression .)
+    ELIF            reduce using rule 7 (expression -> expression DIVIDE expression .)
+    TO              reduce using rule 7 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 22 ]
+  ! MINUS           [ shift and go to state 23 ]
+  ! TIMES           [ shift and go to state 24 ]
+  ! DIVIDE          [ shift and go to state 25 ]
+
+
+state 39
+
+    (21) statement -> FOR ID EQUALS expression . TO expression statements END
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+
+    TO              shift and go to state 42
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 40
+
+    (18) statement -> IF condition statements ELSE statements . END
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    END             shift and go to state 43
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 41
+
+    (19) statement -> IF condition statements ELIF condition . statements END
+    (20) statement -> IF condition statements ELIF condition . statements ELSE statements END
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statements                     shift and go to state 44
+    statement                      shift and go to state 3
+
+state 42
+
+    (21) statement -> FOR ID EQUALS expression TO . expression statements END
+    (4) expression -> . expression PLUS expression
+    (5) expression -> . expression MINUS expression
+    (6) expression -> . expression TIMES expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . NUMBER
+    (9) expression -> . ID
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 45
+
+state 43
+
+    (18) statement -> IF condition statements ELSE statements END .
+
+    PRINT           reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    LET             reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    IF              reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    FOR             reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    $end            reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    END             reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    ELSE            reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+    ELIF            reduce using rule 18 (statement -> IF condition statements ELSE statements END .)
+
+
+state 44
+
+    (19) statement -> IF condition statements ELIF condition statements . END
+    (20) statement -> IF condition statements ELIF condition statements . ELSE statements END
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    END             shift and go to state 46
+    ELSE            shift and go to state 47
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 45
+
+    (21) statement -> FOR ID EQUALS expression TO expression . statements END
+    (4) expression -> expression . PLUS expression
+    (5) expression -> expression . MINUS expression
+    (6) expression -> expression . TIMES expression
+    (7) expression -> expression . DIVIDE expression
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statements                     shift and go to state 48
+    statement                      shift and go to state 3
+
+state 46
+
+    (19) statement -> IF condition statements ELIF condition statements END .
+
+    PRINT           reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    LET             reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    IF              reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    FOR             reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    $end            reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    END             reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    ELSE            reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+    ELIF            reduce using rule 19 (statement -> IF condition statements ELIF condition statements END .)
+
+
+state 47
+
+    (20) statement -> IF condition statements ELIF condition statements ELSE . statements END
+    (2) statements -> . statements statement
+    (3) statements -> . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statements                     shift and go to state 49
+    statement                      shift and go to state 3
+
+state 48
+
+    (21) statement -> FOR ID EQUALS expression TO expression statements . END
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    END             shift and go to state 50
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 49
+
+    (20) statement -> IF condition statements ELIF condition statements ELSE statements . END
+    (2) statements -> statements . statement
+    (13) statement -> . PRINT STRING
+    (14) statement -> . PRINT ID
+    (15) statement -> . LET ID EQUALS expression
+    (16) statement -> . LET ID EQUALS STRING
+    (17) statement -> . IF condition statements END
+    (18) statement -> . IF condition statements ELSE statements END
+    (19) statement -> . IF condition statements ELIF condition statements END
+    (20) statement -> . IF condition statements ELIF condition statements ELSE statements END
+    (21) statement -> . FOR ID EQUALS expression TO expression statements END
+
+    END             shift and go to state 51
+    PRINT           shift and go to state 4
+    LET             shift and go to state 5
+    IF              shift and go to state 6
+    FOR             shift and go to state 7
+
+    statement                      shift and go to state 8
+
+state 50
+
+    (21) statement -> FOR ID EQUALS expression TO expression statements END .
+
+    PRINT           reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    LET             reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    IF              reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    FOR             reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    $end            reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    END             reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    ELSE            reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+    ELIF            reduce using rule 21 (statement -> FOR ID EQUALS expression TO expression statements END .)
+
+
+state 51
+
+    (20) statement -> IF condition statements ELIF condition statements ELSE statements END .
+
+    PRINT           reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    LET             reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    IF              reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    FOR             reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    $end            reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    END             reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    ELSE            reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+    ELIF            reduce using rule 20 (statement -> IF condition statements ELIF condition statements ELSE statements END .)
+
