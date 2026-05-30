@@ -1,0 +1,353 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+
+\geometry{top=3cm, bottom=2cm, left=3cm, right=2cm}
+
+% Configuração de cores e estilo para código
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.4,0,0.6}
+\definecolor{codeblue}{rgb}{0,0,0.8}
+
+\lstdefinestyle{python}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    frame=single,
+    rulecolor=\color{black!30},
+    tabsize=4
+}
+
+\lstdefinestyle{minilang}{
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{codeblue}\bfseries,
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+    rulecolor=\color{black!30},
+    morekeywords={LET, PRINT, IF, ELIF, ELSE, FOR, WHILE, END, TO},
+    tabsize=4
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Compiladores -- AV2}
+\lhead{Mini Compiler -- Minilang}
+\cfoot{\thepage}
+
+\onehalfspacing
+
+\begin{document}
+
+% ==========================
+% CAPA
+% ==========================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\large \textbf{UNINASSAU}}\\[0.5cm]
+    {\large Disciplina de Compiladores}\\[3cm]
+
+    {\Huge \textbf{Mini Compiler}}\\[0.5cm]
+    {\Large Minilang -- Compilador Educacional em Python}\\[3cm]
+
+    {\large \textbf{Integrantes do Grupo:}}\\[0.3cm]
+    {\large Ryan Nunes, Bryan Samuel, Anderson Djalma e Gabriel Barros}\\[1cm]
+
+    {\large \textbf{Professor:} Anderlan}\\[1cm]
+    {\large Maceió - AL}\\[0.3cm]
+    {\large \today}
+\end{titlepage}
+
+% ==========================
+% SUMÁRIO
+% ==========================
+\tableofcontents
+\newpage
+
+% ==========================
+% 1. INTRODUÇÃO
+% ==========================
+\section{Introdução}
+
+Este relatório documenta o desenvolvimento do \textbf{Mini Compiler}, um compilador educacional
+criado em Python para a disciplina de Compiladores. O projeto tem como objetivo implementar
+as etapas fundamentais de um compilador real: análise léxica, análise sintática, geração de
+Árvore Sintática Abstrata (AST) e geração de código.
+
+A linguagem desenvolvida, chamada \textbf{Minilang}, é uma linguagem simples com sintaxe
+em português/inglês que compila para código Python. Ela suporta variáveis, operações
+matemáticas, estruturas condicionais e de repetição.
+
+% ==========================
+% 2. ESTRUTURA DO COMPILADOR
+% ==========================
+\section{Estrutura do Compilador}
+
+Um compilador é um programa que traduz código escrito em uma linguagem (linguagem fonte)
+para outra linguagem (linguagem destino). O Mini Compiler é composto por quatro módulos
+principais, conforme ilustrado abaixo:
+
+\begin{center}
+\begin{tabular}{ccccc}
+\texttt{programa.mini} & $\rightarrow$ & \textbf{Lexer} & $\rightarrow$ & \textbf{Tokens} \\
+& & & & $\downarrow$ \\
+\texttt{output.py} & $\leftarrow$ & \textbf{Generator} & $\leftarrow$ & \textbf{Parser (AST)} \\
+\end{tabular}
+\end{center}
+
+\subsection{Lexer (Análise Léxica)}
+
+O \textbf{Lexer} é a primeira etapa do compilador. Ele lê o código fonte caractere por caractere
+e agrupa em unidades chamadas \textbf{tokens}. Um token é o menor elemento com significado
+em uma linguagem, como uma palavra reservada, um número ou um operador.
+
+O Lexer do Minilang foi implementado usando a biblioteca \textbf{PLY (Python Lex-Yacc)}.
+Os tokens reconhecidos são:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Token} & \textbf{Descrição} \\
+\midrule
+\texttt{LET} & Declaração de variável \\
+\texttt{PRINT} & Impressão de valor \\
+\texttt{IF / ELIF / ELSE} & Estrutura condicional \\
+\texttt{FOR} & Laço de repetição com contador \\
+\texttt{WHILE} & Laço de repetição com condição \\
+\texttt{END} & Fechamento de bloco \\
+\texttt{TO} & Intervalo do FOR \\
+\texttt{NUMBER} & Número inteiro ou decimal \\
+\texttt{STRING} & Texto entre aspas \\
+\texttt{ID} & Identificador (nome de variável) \\
+\texttt{EQUALS / EQUAL\_EQUAL} & Atribuição (=) e comparação (==) \\
+\texttt{GREATER / LESS} & Operadores \textgreater{} e \textless{} \\
+\texttt{GREATER\_EQUAL / LESS\_EQUAL} & Operadores \textgreater{}= e \textless{}= \\
+\texttt{NOT\_EQUAL} & Operador != \\
+\texttt{PLUS / MINUS / TIMES / DIVIDE} & Operadores aritméticos \\
+\bottomrule
+\end{tabular}
+\caption{Tokens da linguagem Minilang}
+\end{table}
+
+Exemplo de como o Lexer tokeniza o código:
+
+\begin{lstlisting}[style=minilang, caption={Entrada no Lexer}]
+LET x = 10
+IF x > 5
+PRINT "Maior"
+END
+\end{lstlisting}
+
+\begin{lstlisting}[style=python, caption={Tokens gerados pelo Lexer}]
+LexToken(LET, 'LET', 1, 0)
+LexToken(ID, 'x', 1, 4)
+LexToken(EQUALS, '=', 1, 6)
+LexToken(NUMBER, 10, 1, 8)
+LexToken(IF, 'IF', 2, 11)
+LexToken(ID, 'x', 2, 14)
+LexToken(GREATER, '>', 2, 16)
+LexToken(NUMBER, 5, 2, 18)
+LexToken(PRINT, 'PRINT', 3, 20)
+LexToken(STRING, 'Maior', 3, 26)
+LexToken(END, 'END', 4, 33)
+\end{lstlisting}
+
+\subsection{Parser (Análise Sintática)}
+
+O \textbf{Parser} recebe a lista de tokens do Lexer e verifica se eles formam uma estrutura
+gramaticalmente válida, de acordo com as regras da linguagem. Ele utiliza o método
+\textbf{LALR (Look-Ahead LR)}, implementado pelo PLY, que é o mesmo método utilizado
+em compiladores profissionais.
+
+O resultado do Parser é uma \textbf{Árvore Sintática Abstrata (AST)}, que representa
+a estrutura hierárquica do programa.
+
+Exemplo de AST gerada para o código acima:
+
+\begin{lstlisting}[style=python, caption={AST gerada pelo Parser}]
+[
+  {'type': 'LET', 'name': 'x', 'value': 10},
+  {'type': 'IF',
+   'left': 'x', 'operator': '>', 'right': 5,
+   'body': [{'type': 'PRINT', 'value': 'Maior',
+             'value_type': 'STRING'}],
+   'elifs': [], 'else': None}
+]
+\end{lstlisting}
+
+\subsection{Generator (Geração de Código)}
+
+O \textbf{Generator} percorre a AST e traduz cada nó para código Python equivalente.
+Ele utiliza recursão para tratar comandos aninhados (por exemplo, um \texttt{LET}
+dentro de um \texttt{IF}), garantindo que a indentação do Python seja gerada corretamente.
+
+\begin{lstlisting}[style=python, caption={Código Python gerado}]
+x = 10
+if x > 5:
+    print("Maior")
+\end{lstlisting}
+
+% ==========================
+% 3. SINTAXE DA LINGUAGEM
+% ==========================
+\section{Sintaxe da Linguagem Minilang}
+
+\subsection{Variáveis e Strings}
+\begin{lstlisting}[style=minilang]
+LET nome = "Brian"
+LET idade = 22
+LET soma = idade + 10
+\end{lstlisting}
+
+\subsection{Operações Matemáticas}
+\begin{lstlisting}[style=minilang]
+LET a = 10
+LET b = 3
+LET resultado = a * b
+PRINT resultado
+\end{lstlisting}
+
+\subsection{Estrutura Condicional}
+\begin{lstlisting}[style=minilang]
+LET nota = 7
+
+IF nota > 7
+PRINT "Aprovado"
+
+ELIF nota == 7
+PRINT "Passou na media"
+
+ELSE
+PRINT "Reprovado"
+
+END
+\end{lstlisting}
+
+\subsection{Laço FOR}
+\begin{lstlisting}[style=minilang]
+FOR i = 1 TO 5
+PRINT i
+END
+\end{lstlisting}
+
+\subsection{Laço WHILE}
+\begin{lstlisting}[style=minilang]
+LET x = 1
+WHILE x < 6
+PRINT x
+LET x = x + 1
+END
+\end{lstlisting}
+
+% ==========================
+% 4. TECNOLOGIAS UTILIZADAS
+% ==========================
+\section{Tecnologias Utilizadas}
+
+\begin{itemize}
+    \item \textbf{Python 3.13} -- Linguagem de implementação do compilador
+    \item \textbf{PLY (Python Lex-Yacc)} -- Biblioteca para construção do Lexer e Parser LALR
+    \item \textbf{Git e GitHub} -- Controle de versão e colaboração
+    \item \textbf{VS Code} -- Ambiente de desenvolvimento
+    \item \textbf{MikTeX + TeXMaker} -- Compilação e edição deste relatório em \LaTeX{}
+\end{itemize}
+
+% ==========================
+% 5. USO DE IA
+% ==========================
+\section{Uso de Inteligência Artificial}
+
+Conforme permitido pelas regras da AV2, o grupo utilizou Inteligência Artificial
+(Claude -- Anthropic) como apoio no desenvolvimento do projeto. A seguir estão
+os principais usos e os erros encontrados no processo.
+
+\subsection{Como a IA foi utilizada}
+
+\begin{itemize}
+    \item Revisão e melhoria do \texttt{generator.py}
+    \item Correção de erros de importação no Python
+    \item Criação do arquivo \texttt{programa.mini} com exemplos completos
+    \item Colaboração deste relatório em \LaTeX{}
+\end{itemize}
+
+\subsection{Erros encontrados durante o desenvolvimento}
+
+\begin{enumerate}
+    \item \textbf{ImportError: cannot import name 'lexer' from 'lexer'} \\
+          O arquivo \texttt{lexer.py} estava incompleto -- faltava a linha \texttt{lexer = lex.lex()}
+          no final, que cria e exporta o objeto do lexer.
+
+    \item \textbf{ImportError: cannot import name 'parser' from 'parser'} \\
+          O Python possui um módulo nativo chamado \texttt{parser}, que conflitava com o arquivo
+          \texttt{parser.py} do projeto. A solução foi renomear o arquivo para
+          \texttt{minilang\_parser.py} e atualizar os imports.
+
+\end{enumerate}
+
+% ==========================
+% 6. COMO EXECUTAR
+% ==========================
+\section{Como Executar o Projeto}
+
+\subsection{Pré-requisitos}
+\begin{lstlisting}[language=bash]
+pip install ply
+\end{lstlisting}
+
+\subsection{Execução}
+\begin{enumerate}
+    \item Escreva o código Minilang no arquivo \texttt{programa.mini}
+    \item Execute o compilador:
+\begin{lstlisting}[language=bash]
+python main.py
+\end{lstlisting}
+    \item O código Python gerado será salvo em \texttt{output.py}
+    \item Para executar o resultado:
+\begin{lstlisting}[language=bash]
+python output.py
+\end{lstlisting}
+\end{enumerate}
+
+% ==========================
+% 7. CONCLUSÃO
+% ==========================
+\section{Conclusão}
+
+O desenvolvimento do Mini Compiler permitiu ao grupo compreender na prática as etapas
+fundamentais de um compilador: análise léxica, análise sintática, construção da AST e
+geração de código. A utilização da biblioteca PLY facilitou a implementação do Lexer e
+do Parser LALR, enquanto a refatoração do Generator com recursão garantiu suporte a
+estruturas aninhadas.
+
+O projeto atingiu todos os requisitos da AV2: possui condicional (IF/ELIF/ELSE),
+laços de repetição (FOR e WHILE), versionamento no GitHub, e este relatório
+elaborado no editor tipográfico \LaTeX{}.
+
+\end{document}

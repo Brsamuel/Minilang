@@ -241,3 +241,6 @@ python main.py
 - GitHub
 - VS Code
 
+## Relatório
+
+O relatório completo em LaTeX está disponível em "Relatorio.pdf"
