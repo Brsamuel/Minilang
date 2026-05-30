@@ -2,6 +2,16 @@
 
 Compilador educacional desenvolvido em Python para a disciplina de Compiladores.
 
+### Alunos
+
+```txt
+
+Ryan Nunes da Silva - 01431101
+Anderson Djalma Santos Pinto - 01607677
+Gabriel de Oliveira Barros - 01608601
+Brian Samuel de Barros Santos - 01608705
+```
+
 ## Funcionalidades
 
 - PRINT
@@ -15,10 +25,6 @@ Compilador educacional desenvolvido em Python para a disciplina de Compiladores.
 - Parser
 - AST
 - Generator
-
-## Exemplo de Código
-
-### Entrada
 ## Comandos Disponíveis
 
 | Comando | Função |
@@ -121,11 +127,13 @@ for i in range(1, 6):
 ```
 
 ### Exemplos variados
-
+```txt
 LET nome = "Minilang"
 PRINT "=== Bem-vindo ao compilador"
 PRINT nome
+```
 
+```txt
 LET a = 10
 LET b = 3
 LET soma = a + b
@@ -137,25 +145,33 @@ PRINT soma
 PRINT sub
 PRINT mult
 PRINT div
+```
 
+```txt
 PRINT "--- FOR loop ---"
 FOR i = 1 TO 5
 PRINT i
 END
+```
 
+```txt
 PRINT "--- WHILE loop ---"
 LET x = 1
 WHILE x < 6
 PRINT x
 LET x = x + 1
 END
+```
 
+```txt
 PRINT "--- IF simples ---"
 LET idade = 20
 IF idade >= 18
 PRINT "Maior de idade"
 END
+```
 
+```txt
 PRINT "--- IF ELSE ---"
 LET nota = 5
 IF nota >= 7
@@ -163,7 +179,9 @@ PRINT "Aprovado"
 ELSE
 PRINT "Reprovado"
 END
+```
 
+```txt
 PRINT "--- IF ELIF ELSE ---"
 LET pontos = 7
 IF pontos > 7
@@ -173,19 +191,24 @@ PRINT "Passou na media"
 ELSE
 PRINT "Reprovado"
 END
+```
 
+```txt
 PRINT "--- LET dentro de IF ---"
 LET valor = 10
 IF valor > 5
 LET dobro = valor + valor
 PRINT dobro
 END
+```
 
+```txt
 PRINT "--- FOR com operacao dentro ---"
 FOR j = 1 TO 3
 LET quadrado = j * j
 PRINT quadrado
 END
+```
 
 ### Funcionalidades
 
