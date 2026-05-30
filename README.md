@@ -120,6 +120,73 @@ for i in range(1, 6):
     print(i)
 ```
 
+### Exemplos variados
+
+LET nome = "Minilang"
+PRINT "=== Bem-vindo ao compilador"
+PRINT nome
+
+LET a = 10
+LET b = 3
+LET soma = a + b
+LET sub = a - b
+LET mult = a * b
+LET div = a / b
+PRINT "--- Operacoes Matematicas ---"
+PRINT soma
+PRINT sub
+PRINT mult
+PRINT div
+
+PRINT "--- FOR loop ---"
+FOR i = 1 TO 5
+PRINT i
+END
+
+PRINT "--- WHILE loop ---"
+LET x = 1
+WHILE x < 6
+PRINT x
+LET x = x + 1
+END
+
+PRINT "--- IF simples ---"
+LET idade = 20
+IF idade >= 18
+PRINT "Maior de idade"
+END
+
+PRINT "--- IF ELSE ---"
+LET nota = 5
+IF nota >= 7
+PRINT "Aprovado"
+ELSE
+PRINT "Reprovado"
+END
+
+PRINT "--- IF ELIF ELSE ---"
+LET pontos = 7
+IF pontos > 7
+PRINT "Aprovado"
+ELIF pontos == 7
+PRINT "Passou na media"
+ELSE
+PRINT "Reprovado"
+END
+
+PRINT "--- LET dentro de IF ---"
+LET valor = 10
+IF valor > 5
+LET dobro = valor + valor
+PRINT dobro
+END
+
+PRINT "--- FOR com operacao dentro ---"
+FOR j = 1 TO 3
+LET quadrado = j * j
+PRINT quadrado
+END
+
 ### Funcionalidades
 
 Variáveis

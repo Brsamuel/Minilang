@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEDIVIDE ELIF ELSE END EQUALS EQUAL_EQUAL FOR GREATER ID IF LESS LET MINUS NUMBER PLUS PRINT STRING TIMES TO\nprogram : statements\n\nstatements : statements statement\n\nstatements : statement\n\nexpression : expression PLUS expression\n           | expression MINUS expression\n           | expression TIMES expression\n           | expression DIVIDE expression\n\nexpression : NUMBER\n\nexpression : ID\n\ncondition : expression GREATER expression\n          | expression LESS expression\n          | expression EQUAL_EQUAL expression\n\nstatement : PRINT STRING\n\nstatement : PRINT ID\n\nstatement : LET ID EQUALS expression\n\nstatement : LET ID EQUALS STRING\n\nstatement : IF condition statements END\n\nstatement : IF condition statements ELSE statements END\n\nstatement : IF condition statements ELIF condition statements END\n\nstatement : IF condition statements ELIF condition statements ELSE statements END\n\nstatement : FOR ID EQUALS expression TO expression statements END\n'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEDIVIDE ELIF ELSE END EQUALS EQUAL_EQUAL FOR GREATER GREATER_EQUAL ID IF LESS LESS_EQUAL LET MINUS NOT_EQUAL NUMBER PLUS PRINT STRING TIMES TO WHILE\nprogram : statements\n\nstatements : statements statement\n\nstatements : statement\n\nexpression : expression PLUS expression\n           | expression MINUS expression\n           | expression TIMES expression\n           | expression DIVIDE expression\n\nexpression : NUMBER\n\nexpression : ID\n\ncondition : expression GREATER expression\n          | expression LESS expression\n          | expression EQUAL_EQUAL expression\n          | expression GREATER_EQUAL expression\n          | expression LESS_EQUAL expression\n          | expression NOT_EQUAL expression\n\nstatement : PRINT STRING\n\nstatement : PRINT ID\n\nstatement : LET ID EQUALS expression\n\nstatement : LET ID EQUALS STRING\n\nstatement : IF condition statements END\n\nstatement : IF condition statements ELSE statements END\n\nstatement : IF condition statements ELIF condition statements END\n\nstatement : IF condition statements ELIF condition statements ELSE statements END\n\nstatement : FOR ID EQUALS expression TO expression statements END\n\nstatement : WHILE condition statements END\n'
     
-_lr_action_items = {'PRINT':([0,2,3,8,9,10,12,14,15,18,27,28,29,30,32,33,34,35,36,37,38,40,41,43,44,45,46,47,48,49,50,51,],[4,4,-3,-2,-13,-14,4,-8,-9,4,-15,-16,-17,4,-10,-11,-12,-4,-5,-6,-7,4,4,-18,4,4,-19,4,4,4,-21,-20,]),'LET':([0,2,3,8,9,10,12,14,15,18,27,28,29,30,32,33,34,35,36,37,38,40,41,43,44,45,46,47,48,49,50,51,],[5,5,-3,-2,-13,-14,5,-8,-9,5,-15,-16,-17,5,-10,-11,-12,-4,-5,-6,-7,5,5,-18,5,5,-19,5,5,5,-21,-20,]),'IF':([0,2,3,8,9,10,12,14,15,18,27,28,29,30,32,33,34,35,36,37,38,40,41,43,44,45,46,47,48,49,50,51,],[6,6,-3,-2,-13,-14,6,-8,-9,6,-15,-16,-17,6,-10,-11,-12,-4,-5,-6,-7,6,6,-18,6,6,-19,6,6,6,-21,-20,]),'FOR':([0,2,3,8,9,10,12,14,15,18,27,28,29,30,32,33,34,35,36,37,38,40,41,43,44,45,46,47,48,49,50,51,],[7,7,-3,-2,-13,-14,7,-8,-9,7,-15,-16,-17,7,-10,-11,-12,-4,-5,-6,-7,7,7,-18,7,7,-19,7,7,7,-21,-20,]),'$end':([1,2,3,8,9,10,14,15,27,28,29,35,36,37,38,43,46,50,51,],[0,-1,-3,-2,-13,-14,-8,-9,-15,-16,-17,-4,-5,-6,-7,-18,-19,-21,-20,]),'END':([3,8,9,10,14,15,18,27,28,29,35,36,37,38,40,43,44,46,48,49,50,51,],[-3,-2,-13,-14,-8,-9,29,-15,-16,-17,-4,-5,-6,-7,43,-18,46,-19,50,51,-21,-20,]),'ELSE':([3,8,9,10,14,15,18,27,28,29,35,36,37,38,43,44,46,50,51,],[-3,-2,-13,-14,-8,-9,30,-15,-16,-17,-4,-5,-6,-7,-18,47,-19,-21,-20,]),'ELIF':([3,8,9,10,14,15,18,27,28,29,35,36,37,38,43,46,50,51,],[-3,-2,-13,-14,-8,-9,31,-15,-16,-17,-4,-5,-6,-7,-18,-19,-21,-20,]),'STRING':([4,17,],[9,28,]),'ID':([4,5,6,7,17,19,20,21,22,23,24,25,26,31,42,],[10,11,15,16,15,15,15,15,15,15,15,15,15,15,15,]),'NUMBER':([6,17,19,20,21,22,23,24,25,26,31,42,],[14,14,14,14,14,14,14,14,14,14,14,14,]),'EQUALS':([11,16,],[17,26,]),'GREATER':([13,14,15,35,36,37,38,],[19,-8,-9,-4,-5,-6,-7,]),'LESS':([13,14,15,35,36,37,38,],[20,-8,-9,-4,-5,-6,-7,]),'EQUAL_EQUAL':([13,14,15,35,36,37,38,],[21,-8,-9,-4,-5,-6,-7,]),'PLUS':([13,14,15,27,32,33,34,35,36,37,38,39,45,],[22,-8,-9,22,22,22,22,-4,-5,-6,-7,22,22,]),'MINUS':([13,14,15,27,32,33,34,35,36,37,38,39,45,],[23,-8,-9,23,23,23,23,-4,-5,-6,-7,23,23,]),'TIMES':([13,14,15,27,32,33,34,35,36,37,38,39,45,],[24,-8,-9,24,24,24,24,24,24,-6,-7,24,24,]),'DIVIDE':([13,14,15,27,32,33,34,35,36,37,38,39,45,],[25,-8,-9,25,25,25,25,25,25,-6,-7,25,25,]),'TO':([14,15,35,36,37,38,39,],[-8,-9,-4,-5,-6,-7,42,]),}
+_lr_action_items = {'PRINT':([0,2,3,9,10,11,13,15,16,18,20,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,53,54,55,56,57,58,59,60,61,],[4,4,-3,-2,-16,-17,4,-8,-9,4,4,4,-18,-19,-20,4,-10,-11,-12,-13,-14,-15,-4,-5,-6,-7,-25,4,4,-21,4,4,-22,4,4,4,-24,-23,]),'LET':([0,2,3,9,10,11,13,15,16,18,20,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,53,54,55,56,57,58,59,60,61,],[5,5,-3,-2,-16,-17,5,-8,-9,5,5,5,-18,-19,-20,5,-10,-11,-12,-13,-14,-15,-4,-5,-6,-7,-25,5,5,-21,5,5,-22,5,5,5,-24,-23,]),'IF':([0,2,3,9,10,11,13,15,16,18,20,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,53,54,55,56,57,58,59,60,61,],[6,6,-3,-2,-16,-17,6,-8,-9,6,6,6,-18,-19,-20,6,-10,-11,-12,-13,-14,-15,-4,-5,-6,-7,-25,6,6,-21,6,6,-22,6,6,6,-24,-23,]),'FOR':([0,2,3,9,10,11,13,15,16,18,20,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,53,54,55,56,57,58,59,60,61,],[7,7,-3,-2,-16,-17,7,-8,-9,7,7,7,-18,-19,-20,7,-10,-11,-12,-13,-14,-15,-4,-5,-6,-7,-25,7,7,-21,7,7,-22,7,7,7,-24,-23,]),'WHILE':([0,2,3,9,10,11,13,15,16,18,20,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,49,50,51,53,54,55,56,57,58,59,60,61,],[8,8,-3,-2,-16,-17,8,-8,-9,8,8,8,-18,-19,-20,8,-10,-11,-12,-13,-14,-15,-4,-5,-6,-7,-25,8,8,-21,8,8,-22,8,8,8,-24,-23,]),'$end':([1,2,3,9,10,11,15,16,33,34,35,44,45,46,47,49,53,56,60,61,],[0,-1,-3,-2,-16,-17,-8,-9,-18,-19,-20,-4,-5,-6,-7,-25,-21,-22,-24,-23,]),'END':([3,9,10,11,15,16,20,32,33,34,35,44,45,46,47,49,50,53,54,56,58,59,60,61,],[-3,-2,-16,-17,-8,-9,35,49,-18,-19,-20,-4,-5,-6,-7,-25,53,-21,56,-22,60,61,-24,-23,]),'ELSE':([3,9,10,11,15,16,20,33,34,35,44,45,46,47,49,53,54,56,60,61,],[-3,-2,-16,-17,-8,-9,36,-18,-19,-20,-4,-5,-6,-7,-25,-21,57,-22,-24,-23,]),'ELIF':([3,9,10,11,15,16,20,33,34,35,44,45,46,47,49,53,56,60,61,],[-3,-2,-16,-17,-8,-9,37,-18,-19,-20,-4,-5,-6,-7,-25,-21,-22,-24,-23,]),'STRING':([4,19,],[10,34,]),'ID':([4,5,6,7,8,19,21,22,23,24,25,26,27,28,29,30,31,37,52,],[11,12,16,17,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'NUMBER':([6,8,19,21,22,23,24,25,26,27,28,29,30,31,37,52,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'EQUALS':([12,17,],[19,31,]),'GREATER':([14,15,16,44,45,46,47,],[21,-8,-9,-4,-5,-6,-7,]),'LESS':([14,15,16,44,45,46,47,],[22,-8,-9,-4,-5,-6,-7,]),'EQUAL_EQUAL':([14,15,16,44,45,46,47,],[23,-8,-9,-4,-5,-6,-7,]),'GREATER_EQUAL':([14,15,16,44,45,46,47,],[24,-8,-9,-4,-5,-6,-7,]),'LESS_EQUAL':([14,15,16,44,45,46,47,],[25,-8,-9,-4,-5,-6,-7,]),'NOT_EQUAL':([14,15,16,44,45,46,47,],[26,-8,-9,-4,-5,-6,-7,]),'PLUS':([14,15,16,33,38,39,40,41,42,43,44,45,46,47,48,55,],[27,-8,-9,27,27,27,27,27,27,27,-4,-5,-6,-7,27,27,]),'MINUS':([14,15,16,33,38,39,40,41,42,43,44,45,46,47,48,55,],[28,-8,-9,28,28,28,28,28,28,28,-4,-5,-6,-7,28,28,]),'TIMES':([14,15,16,33,38,39,40,41,42,43,44,45,46,47,48,55,],[29,-8,-9,29,29,29,29,29,29,29,29,29,-6,-7,29,29,]),'DIVIDE':([14,15,16,33,38,39,40,41,42,43,44,45,46,47,48,55,],[30,-8,-9,30,30,30,30,30,30,30,30,30,-6,-7,30,30,]),'TO':([15,16,44,45,46,47,48,],[-8,-9,-4,-5,-6,-7,52,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'statements':([0,12,30,41,45,47,],[2,18,40,44,48,49,]),'statement':([0,2,12,18,30,40,41,44,45,47,48,49,],[3,8,3,8,3,8,3,8,3,3,8,8,]),'condition':([6,31,],[12,41,]),'expression':([6,17,19,20,21,22,23,24,25,26,31,42,],[13,27,32,33,34,35,36,37,38,39,13,45,]),}
+_lr_goto_items = {'program':([0,],[1,]),'statements':([0,13,18,36,51,55,57,],[2,20,32,50,54,58,59,]),'statement':([0,2,13,18,20,32,36,50,51,54,55,57,58,59,],[3,9,3,3,9,9,3,9,3,9,3,3,9,9,]),'condition':([6,8,37,],[13,18,51,]),'expression':([6,8,19,21,22,23,24,25,26,27,28,29,30,31,37,52,],[14,14,33,38,39,40,41,42,43,44,45,46,47,48,14,55,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,25 +27,29 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> statements','program',1,'p_program','parser.py',20),
-  ('statements -> statements statement','statements',2,'p_statements_multiple','parser.py',32),
-  ('statements -> statement','statements',1,'p_statements_single','parser.py',44),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','parser.py',56),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','parser.py',57),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','parser.py',58),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','parser.py',59),
-  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',80),
-  ('expression -> ID','expression',1,'p_expression_id','parser.py',92),
-  ('condition -> expression GREATER expression','condition',3,'p_condition','parser.py',104),
-  ('condition -> expression LESS expression','condition',3,'p_condition','parser.py',105),
-  ('condition -> expression EQUAL_EQUAL expression','condition',3,'p_condition','parser.py',106),
-  ('statement -> PRINT STRING','statement',2,'p_statement_print_string','parser.py',125),
-  ('statement -> PRINT ID','statement',2,'p_statement_print_variable','parser.py',144),
-  ('statement -> LET ID EQUALS expression','statement',4,'p_statement_let_expression','parser.py',163),
-  ('statement -> LET ID EQUALS STRING','statement',4,'p_statement_let_string','parser.py',182),
-  ('statement -> IF condition statements END','statement',4,'p_statement_if','parser.py',201),
-  ('statement -> IF condition statements ELSE statements END','statement',6,'p_statement_if_else','parser.py',228),
-  ('statement -> IF condition statements ELIF condition statements END','statement',7,'p_statement_if_elif','parser.py',255),
-  ('statement -> IF condition statements ELIF condition statements ELSE statements END','statement',9,'p_statement_if_elif_else','parser.py',294),
-  ('statement -> FOR ID EQUALS expression TO expression statements END','statement',8,'p_statement_for','parser.py',333),
+  ('program -> statements','program',1,'p_program','minilang_parser.py',20),
+  ('statements -> statements statement','statements',2,'p_statements_multiple','minilang_parser.py',30),
+  ('statements -> statement','statements',1,'p_statements_single','minilang_parser.py',40),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','minilang_parser.py',50),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','minilang_parser.py',51),
+  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','minilang_parser.py',52),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','minilang_parser.py',53),
+  ('expression -> NUMBER','expression',1,'p_expression_number','minilang_parser.py',68),
+  ('expression -> ID','expression',1,'p_expression_id','minilang_parser.py',78),
+  ('condition -> expression GREATER expression','condition',3,'p_condition','minilang_parser.py',88),
+  ('condition -> expression LESS expression','condition',3,'p_condition','minilang_parser.py',89),
+  ('condition -> expression EQUAL_EQUAL expression','condition',3,'p_condition','minilang_parser.py',90),
+  ('condition -> expression GREATER_EQUAL expression','condition',3,'p_condition','minilang_parser.py',91),
+  ('condition -> expression LESS_EQUAL expression','condition',3,'p_condition','minilang_parser.py',92),
+  ('condition -> expression NOT_EQUAL expression','condition',3,'p_condition','minilang_parser.py',93),
+  ('statement -> PRINT STRING','statement',2,'p_statement_print_string','minilang_parser.py',107),
+  ('statement -> PRINT ID','statement',2,'p_statement_print_variable','minilang_parser.py',121),
+  ('statement -> LET ID EQUALS expression','statement',4,'p_statement_let_expression','minilang_parser.py',135),
+  ('statement -> LET ID EQUALS STRING','statement',4,'p_statement_let_string','minilang_parser.py',149),
+  ('statement -> IF condition statements END','statement',4,'p_statement_if','minilang_parser.py',163),
+  ('statement -> IF condition statements ELSE statements END','statement',6,'p_statement_if_else','minilang_parser.py',181),
+  ('statement -> IF condition statements ELIF condition statements END','statement',7,'p_statement_if_elif','minilang_parser.py',199),
+  ('statement -> IF condition statements ELIF condition statements ELSE statements END','statement',9,'p_statement_if_elif_else','minilang_parser.py',224),
+  ('statement -> FOR ID EQUALS expression TO expression statements END','statement',8,'p_statement_for','minilang_parser.py',249),
+  ('statement -> WHILE condition statements END','statement',4,'p_statement_while','minilang_parser.py',265),
 ]

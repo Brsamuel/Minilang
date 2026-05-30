@@ -1,5 +1,5 @@
 from lexer import lexer
-from parser import parser
+from minilang_parser import parser
 from generator import Generator
 
 # =========================
